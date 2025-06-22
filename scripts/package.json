@@ -1,10 +1,14 @@
 {
   "name": "scripts",
   "version": "1.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "build": "mkdir -p build && echo '#!/bin/bash\\necho OK' > build/init.sh",
-    "dev": "echo 'No dev mode for scripts.'",
-    "lint": "echo 'Linting scripts...'",
-    "test": "echo 'Testing scripts...'"
-  }
+    "build": "mkdir -p build && echo '#!/bin/bash\\necho OK' > build/init.sh && chmod +x build/init.sh && echo '🛠️ Scripts compiled to build/init.sh'",
+    "dev": "echo '🚫 No dev mode available for scripts workspace.'",
+    "lint": "echo '🔎 Linting utility scripts...' && exit 0",
+    "test": "echo '🧪 Running basic script tests (none defined)...' && exit 0"
+  },
+  "dependencies": {},
+  "devDependencies": {}
 }

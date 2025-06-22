@@ -1,0 +1,43 @@
+name: 🕵️ Weekly Slither Security Scan
+
+on:
+  schedule:
+    - cron: '0 0 * * 0'  # every Sunday at 00:00 UTC
+  workflow_dispatch:      # allow manual triggering
+  push:
+    branches: [slither-test]  # optional branch for experimentation
+
+permissions:
+  security-events: write
+  actions: read
+  contents: read
+
+jobs:
+  slither-sarif-scan:
+    runs-on: ubuntu-latest
+    name: 🔒 Slither Static Analysis
+
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v4
+
+      - name: Install Slither
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip solc
+          pip3 install slither-analyzer
+
+      - name: Compile Contracts
+        run: npx hardhat compile
+
+      - name: Run Slither & Export SARIF
+        run: |
+          mkdir -p slither-reports
+          slither ./contracts \
+            --exclude solc-version \
+            --sarif slither-reports/slither.sarif || true
+
+      - name: Upload SARIF to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: slither-reports/slither.sarif

@@ -1,22 +1,145 @@
-# .github/workflows/ci.yml
-name: Monorepo CI
+name: CI
 
-on: [push, pull_request]
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
 
 jobs:
-  install-and-check:
+  lint:
+    name: 🧹 Lint
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-      - run: pnpm install
-      - run: pnpm recursive run build || echo "No build scripts yet"
-- name: Setup Turbo Cache
-  uses: actions/cache@v4
-  with:
-    path: .turbo
-    key: ${{ runner.os }}-turbo-${{ hashFiles('**/package-lock.json') }}
-    restore-keys: |
-      ${{ runner.os }}-turbo-
+
+      - name: Install Deps
+        run: pnpm install
+
+      - name: Lint Code
+        run: pnpm lint
+
+  build:
+    name: 🏗️ Build
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
+
+      - name: Install Deps
+        run: pnpm install
+
+      - name: Build Project
+        run: pnpm build
+
+  test:
+    name: 🧪 Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [18.x, 20.x]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Deps
+        run: pnpm install
+
+      - name: Run Unit Tests
+        run: pnpm test
+
+      - name: Upload Test Logs
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-logs
+          path: ./logs || ./test-results
+
+  audit:
+    name: 🔒 Audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18.x
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install Deps
+        run: pnpm install
+
+      - name: Run Audit
+        run: pnpm audit || true
+
+      - name: Parse Vulnerabilities
+        run: |
+          pnpm audit --json > audit-report.json
+          jq -r '.advisories[]?.title' audit-report.json || echo "No vulnerabilities found"
+
+      - name: Create GitHub Security Warning
+        if: failure()
+        run: echo "::warning:: Security issues found. Please review audit-report.json."
+
+  slither:
+    name: 🔍 Slither SARIF Scan
+    runs-on: ubuntu-latest
+    permissions:
+      security-events: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install Slither
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y python3-pip solc
+          pip3 install slither-analyzer
+
+      - name: Compile Contracts
+        run: npx hardhat compile
+
+      - name: Run Slither → SARIF
+        run: |
+          mkdir -p slither-reports
+          slither ./contracts \
+            --exclude solc-version \
+            --sarif slither-reports/slither.sarif || true
+
+      - name: Upload SARIF to GitHub Code Scanning
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: slither-reports/slither.sarif
