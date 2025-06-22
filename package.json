@@ -1,0 +1,21 @@
+{
+  "name": "galactic-genius-monorepo",
+  "version": "1.0.0",
+  "private": true,
+  "packageManager": "pnpm@10.11.0",
+  "workspaces": [
+    "src",
+    "server",
+    "scripts"
+  ],
+  "scripts": {
+    "bootstrap": "pnpm install --recursive",
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test"
+  },
+  "devDependencies": {
+    "turbo": "^2.5.4"
+  }
+}
