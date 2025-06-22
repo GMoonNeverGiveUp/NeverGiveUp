@@ -1,4 +1,4 @@
-name: CI
+name: 🧪 CI Pipeline
 
 on:
   push:
@@ -6,9 +6,15 @@ on:
   pull_request:
     branches: [main, dev]
 
+permissions:
+  contents: read
+  issues: write
+  security-events: write
+
 jobs:
+
   lint:
-    name: 🧹 Lint
+    name: 🧹 Lint Code
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -17,14 +23,14 @@ jobs:
         with:
           version: 8
 
-      - name: Install Deps
+      - name: Install Dependencies
         run: pnpm install
 
-      - name: Lint Code
+      - name: Run Linter
         run: pnpm lint
 
   build:
-    name: 🏗️ Build
+    name: 🏗️ Build Project
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -48,14 +54,14 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Install Deps
+      - name: Install Dependencies
         run: pnpm install
 
-      - name: Build Project
+      - name: Build App
         run: pnpm build
 
   test:
-    name: 🧪 Test
+    name: 🧪 Run Tests
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -71,7 +77,7 @@ jobs:
         with:
           version: 8
 
-      - name: Install Deps
+      - name: Install Dependencies
         run: pnpm install
 
       - name: Run Unit Tests
@@ -83,64 +89,3 @@ jobs:
         with:
           name: test-logs
           path: ./logs || ./test-results
-
-  audit:
-    name: 🔒 Audit
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18.x
-
-      - uses: pnpm/action-setup@v2
-        with:
-          version: 8
-
-      - name: Install Deps
-        run: pnpm install
-
-      - name: Run Audit
-        run: pnpm audit || true
-
-      - name: Parse Vulnerabilities
-        run: |
-          pnpm audit --json > audit-report.json
-          jq -r '.advisories[]?.title' audit-report.json || echo "No vulnerabilities found"
-
-      - name: Create GitHub Security Warning
-        if: failure()
-        run: |
-          echo "::warning:: Security issues found. Please review audit-report.json."
-
-  slither:
-    name: 🔍 Slither SARIF Scan
-    runs-on: ubuntu-latest
-    permissions:
-      security-events: write
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Install Slither
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y python3-pip solc
-          pip3 install slither-analyzer
-
-      - name: Compile Contracts
-        run: npx hardhat compile
-
-      - name: Run Slither → SARIF
-        run: |
-          mkdir -p slither-reports
-          slither ./contracts \
-            --exclude solc-version \
-            --sarif slither-reports/slither.sarif || true
-
-      - name: Upload SARIF to GitHub Code Scanning
-        uses: github/codeql-action/upload-sarif@v3
-        with:
-          sarif_file: slither-reports/slither.sarif

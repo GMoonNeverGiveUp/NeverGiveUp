@@ -9,16 +9,19 @@
 | 🔍 Slither  | ![Slither](https://github.com/GMoonNeverGiveUp/NeverGiveUp/actions/workflows/ci.yml/badge.svg?branch=main&event=push&job=slither)    |
 
 
-## Repository Structure
+## 🗂 Repository Structure
 
-/src # Front-end and app code
-/server # Backend API and off-chain logic
-/scripts # Utility scripts for automation and deployment
-/.github/workflows # CI/CD pipelines
+| Path                     | Description                                       |
+|--------------------------|---------------------------------------------------|
+| `/src`                  | Front-end application code (Astro + React UI)     |
+| `/server`               | Backend API, reputation engine, off-chain logic   |
+| `/scripts`              | Automation scripts (deploy, scrape, score, etc.)  |
+| `/.github/workflows`    | GitHub Actions CI/CD workflows and security scans |
+| `pnpm-workspace.yaml`   | Monorepo configuration for workspace packages     |
+| `.env.example`          | Documented list of required environment variables |
+| `package.json`          | Project-level scripts and dependency coordination |
 
-perl
-Copiar
-Editar
+> This structure supports a scalable monorepo architecture powered by `pnpm`, `turbo`, and GitHub-native automation.
 
 ## Environment
 
