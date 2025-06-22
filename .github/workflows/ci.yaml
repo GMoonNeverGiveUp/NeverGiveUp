@@ -111,7 +111,8 @@ jobs:
 
       - name: Create GitHub Security Warning
         if: failure()
-        run: echo "::warning:: Security issues found. Please review audit-report.json."
+        run: |
+          echo "::warning:: Security issues found. Please review audit-report.json."
 
   slither:
     name: 🔍 Slither SARIF Scan
