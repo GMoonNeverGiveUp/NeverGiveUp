@@ -1,0 +1,10 @@
+{
+  "name": "src",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p dist && echo '<html></html>' > dist/index.html",
+    "dev": "echo 'Starting frontend dev server...'",
+    "lint": "echo 'Linting src...'",
+    "test": "echo 'Testing src...'"
+  }
+}

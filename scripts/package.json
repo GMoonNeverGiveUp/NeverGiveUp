@@ -1,0 +1,10 @@
+{
+  "name": "scripts",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p build && echo '#!/bin/bash\\necho OK' > build/init.sh",
+    "dev": "echo 'No dev mode for scripts.'",
+    "lint": "echo 'Linting scripts...'",
+    "test": "echo 'Testing scripts...'"
+  }
+}

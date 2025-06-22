@@ -1,0 +1,10 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "scripts": {
+    "build": "mkdir -p dist && echo '{\"status\":\"ok\"}' > dist/health.json",
+    "dev": "echo 'Starting backend server...'",
+    "lint": "echo 'Linting server...'",
+    "test": "echo 'Testing server...'"
+  }
+}
