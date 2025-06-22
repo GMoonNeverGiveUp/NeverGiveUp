@@ -10,12 +10,31 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install --recursive",
-    "build": "turbo run build",
-    "dev": "turbo run dev",
+    "build": "turbo run build --filter=...[HEAD]",
+    "dev": "turbo run dev --parallel",
     "lint": "turbo run lint",
-    "test": "turbo run test"
+    "test": "turbo run test --cache-dir=.turbo/cache/test"
   },
   "devDependencies": {
+    "@types/jest": "^30.0.0",
+    "eslint": "^9.29.0",
+    "jest": "^30.0.2",
+    "tsx": "^4.20.3",
     "turbo": "^2.5.4"
+  },
+  "dependencies": {
+    "astro": "^5.10.0",
+    "glob": "^10.4.5"
+  },
+  "pnpm": {
+    "overrides": {
+      "glob": "^10.4.5",
+      "inflight": "npm:@esbuild/dummy-pkg"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp",
+      "unrs-resolver"
+    ]
   }
 }
