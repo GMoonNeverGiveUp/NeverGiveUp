@@ -1,0 +1,39 @@
+name: 🧪 CI Check – Lint, Test, Typecheck
+
+on:
+  pull_request:
+    branches: [main, dev]
+  push:
+    branches: [main, dev]
+
+jobs:
+  check:
+    name: 🔍 Monorepo Check
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: ⬇️ Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup PNPM & Node.js
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: 📥 Install Dependencies
+        run: pnpm install
+
+      - name: ⚡ Turbo Run Check
+        run: pnpm run check
+
+      - name: ✅ Cache Turbo Outputs
+        uses: actions/cache@v4
+        with:
+          path: .turbo
+          key: turbo-${{ runner.os }}-${{ hashFiles('**/package.json') }}
+          restore-keys: |
+            turbo-${{ runner.os }}-

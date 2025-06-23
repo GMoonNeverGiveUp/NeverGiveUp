@@ -1,0 +1,8 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./src" },
+    { "path": "./server" },
+    { "path": "./scripts" }
+  ]
+}

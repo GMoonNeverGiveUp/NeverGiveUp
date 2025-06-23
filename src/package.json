@@ -4,12 +4,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "mkdir -p dist && echo '<html><body><h1>Galactic Genius</h1></body></html>' > dist/index.html",
-    "dev": "echo '🌐 Starting frontend dev server at http://localhost:3000...'",
-    "lint": "echo '🔍 Linting src workspace...' && exit 0",
-    "test": "echo '🧪 Running unit tests for src...' && exit 0",
-    "preview": "echo '📦 Previewing build output from dist/index.html...'"
+    "build": "astro build",
+    "dev": "astro dev",
+    "lint": "eslint . --ext .ts,.tsx,.js,.jsx,.astro",
+    "test": "jest",
+    "typecheck": "tsc --noEmit",
+    "preview": "astro preview"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "dependencies": {
+    "astro": "^5.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.29.0",
+    "jest": "^30.0.2",
+    "@types/jest": "^30.0.0",
+    "typescript": "^5.4.5"
+  }
 }
