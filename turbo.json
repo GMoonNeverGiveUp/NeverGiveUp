@@ -1,24 +1,46 @@
 {
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
-    "build": {
+      "build": {
       "dependsOn": ["^build"],
-      "outputs": ["dist/**", "build/**"]
+      "outputs": ["dist/**", "build/**"],
+      "cache": true
     },
     "dev": {
       "cache": false
     },
     "lint": {
       "dependsOn": ["^lint"],
-      "outputs": []
-    },
-    "test": {
-      "dependsOn": ["^test"],
-      "outputs": []
+      "outputs": [],
+      "inputs": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx", ".eslintrc.*", "eslint.config.*"],
+      "cache": true
     },
     "typecheck": {
       "dependsOn": ["^typecheck"],
-      "outputs": []
+      "outputs": [],
+      "inputs": ["**/*.ts", "**/*.tsx", "tsconfig*.json"],
+      "cache": true
+    },
+    "test:unit": {
+      "dependsOn": ["^build", "^typecheck"],
+      "outputs": ["coverage/unit/**"],
+      "inputs": [
+        "src/**/*.{ts,tsx}",
+        "server/**/*.{ts,tsx}",
+        "scripts/**/*.{ts,tsx}",
+        "vitest.config.ts",
+        "vitest.setup.ts"
+      ],
+      "cache": true
+    },
+    "test:e2e": {
+      "dependsOn": ["^build"],
+      "outputs": ["coverage/e2e/**"],
+      "inputs": [
+        "src/test/e2e/**/*.{ts,tsx}",
+        "playwright.config.ts"
+      ],
+      "cache": true
     }
   }
 }

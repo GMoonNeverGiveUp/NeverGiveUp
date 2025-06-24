@@ -1,13 +1,14 @@
+// server/tsconfig.json
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "paths": {
-        "src": ["../src/index.ts"]
-    }
+    "composite": true,
+    "outDir": "../dist/server",
+    "rootDir": ".",
+    "tsBuildInfoFile": "../dist/server/tsconfig.server.tsbuildinfo"
   },
-  "include": ["api.ts"],
-  "exclude": ["node_modules", "dist"],
-  "references": [
-    { "path": "../src" }
+  "include": [
+    "**/*.ts",
+    "**/__tests__/**/*"
   ]
 }

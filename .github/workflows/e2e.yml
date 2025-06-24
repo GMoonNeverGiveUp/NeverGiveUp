@@ -1,0 +1,60 @@
+name: 🧪 E2E Tests
+
+on:
+  push:
+    branches: [main, dev]
+  pull_request:
+    branches: [main, dev]
+  workflow_dispatch:
+
+jobs:
+  e2e:
+    name: End-to-End Test Suite
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      - name: ⬇️ Checkout repo
+        uses: actions/checkout@v4
+
+      - name: 🧰 Setup Node.js and pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - name: 📦 Install dependencies
+        run: pnpm install
+
+      - name: 🛠 Build app
+        run: pnpm --filter src build
+
+      - name: 🚀 Start app server
+        run: |
+          pnpm --filter src dev & # or use a specific start script
+        env:
+          NODE_ENV: test
+        continue-on-error: true
+
+      - name: ⏳ Wait for local server
+        uses: jakejarvis/wait-action@v0.1.0
+        with:
+          url: http://localhost:3000
+          timeout: 60
+
+      - name: 🎭 Install Playwright Browsers
+        run: npx playwright install --with-deps
+
+      - name: 🧪 Run Playwright tests
+        run: pnpm test:e2e
+
+      - name: 📤 Upload Playwright test traces (on failure)
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-trace
+          path: |
+            test-results/
+            **/playwright-report/

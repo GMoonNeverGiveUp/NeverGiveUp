@@ -1,4 +1,4 @@
-name: 🧪 CI Pipeline
+name: 🤪 CI Pipeline
 
 on:
   push:
@@ -11,8 +11,12 @@ permissions:
   issues: write
   security-events: write
 
-jobs:
+defaults:
+  run:
+    shell: bash
 
+jobs:
+  # ─────────────────────────────── 🧹 LINT ─────────────────────────────── #
   lint:
     name: 🧹 Lint Code
     runs-on: ubuntu-latest
@@ -23,14 +27,12 @@ jobs:
         with:
           version: 8
 
-      - name: Install Dependencies
-        run: pnpm install
+      - run: pnpm install
+      - run: pnpm lint
 
-      - name: Run Linter
-        run: pnpm lint
-
+  # ───────────────────────────── 🏗️ BUILD ───────────────────────────── #
   build:
-    name: 🏗️ Build Project
+    name: 🏗️ Build - Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -46,46 +48,60 @@ jobs:
         with:
           version: 8
 
-      - name: Cache pnpm store
-        uses: actions/cache@v3
+      - uses: actions/cache@v3
         with:
           path: ~/.pnpm-store
           key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-
 
-      - name: Install Dependencies
-        run: pnpm install
+      - run: pnpm install
+      - run: pnpm build
 
-      - name: Build App
-        run: pnpm build
-
-  test:
-    name: 🧪 Run Tests
+  # ───────────────────────────── 📊 UNIT TESTS ───────────────────────────── #
+  test-unit:
+    name: 📊 Unit Tests - Node ${{ matrix.node-version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
         node-version: [18.x, 20.x]
     steps:
       - uses: actions/checkout@v4
-
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-
       - uses: pnpm/action-setup@v2
         with:
           version: 8
+      - uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-
 
-      - name: Install Dependencies
-        run: pnpm install
+      - run: pnpm install
+      - run: pnpm test:unit
 
-      - name: Run Unit Tests
-        run: pnpm test
-
-      - name: Upload Test Logs
+      - name: Upload Unit Test Logs
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: test-logs
+          name: unit-test-logs-${{ matrix.node-version }}
           path: ./logs || ./test-results
+
+  jobs:
+    test-e2e:
+      name: 🛰️ E2E Tests (Chromium, Firefox, WebKit, Edge)
+      runs-on: ubuntu-latest
+      steps:
+        - uses: actions/checkout@v4
+        - uses: actions/setup-node@v4
+          with: { node-version: 18.x }
+        - uses: pnpm/action-setup@v2
+          with: { version: 8 }
+        - run: pnpm install
+        - name: Install Playwright Browsers
+          run: pnpm exec playwright install --with-deps
+        - name: Start Dev & Run E2E
+          run: pnpm exec start-server-and-test "pnpm dev" http://localhost:3000 "pnpm exec playwright test --project=chromium,firefox,webkit,edge"

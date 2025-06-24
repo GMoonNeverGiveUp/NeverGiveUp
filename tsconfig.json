@@ -1,8 +1,12 @@
+// tsconfig.json
 {
-  "files": [],
-  "references": [
-    { "path": "./src" },
-    { "path": "./server" },
-    { "path": "./scripts" }
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "skipLibCheck": true                  // skip checking .d.ts in node_modules
+  },
+  "include": [
+    "src/**/*",
+    "server/**/*",
+    "scripts/**/*"
   ]
 }

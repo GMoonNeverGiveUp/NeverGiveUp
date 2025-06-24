@@ -1,1 +1,1 @@
-console.log("Scripts are ready.");
+console.log('Running NGU script...');

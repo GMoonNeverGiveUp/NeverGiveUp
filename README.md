@@ -1,8 +1,4 @@
-# NeverGiveUp · Galactic Genius Meme Platform 🧠🚀
-
-> Picture this: cutting-edge AI meets the chaotic charm of meme culture in a cosmic setting. That’s NGU.
-
----
+[![codecov](https://codecov.io/gh/GMoonNeverGiveUp/galactic-genius/branch/main/graph/badge.svg)](https://codecov.io/gh/GMoonNeverGiveUp/NeverGiveUp)
 
 ## 🧪 CI Status
 

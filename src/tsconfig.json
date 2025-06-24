@@ -1,24 +1,16 @@
+// src/tsconfig.json
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "baseUrl": ".",
     "composite": true,
-    "rootDir": "./",
     "outDir": "../dist/src",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true
+    "rootDir": ".",
+    "tsBuildInfoFile": "../dist/src/tsconfig.src.tsbuildinfo"
   },
   "include": [
+    "src",
+    "**/*.astro",
     "**/*.ts",
-    "**/*.tsx",
-    "**/__tests__/**/*",
-    "index.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "dist",
-    "**/*.test-d.ts"
+    "**/*.tsx"
   ]
 }
