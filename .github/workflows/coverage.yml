@@ -17,28 +17,33 @@ jobs:
         node-version: [18.x, 20.x]
 
     steps:
-      - uses: actions/checkout@v4
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: 🧱 Install pnpm
+        run: npm install -g pnpm
+
+      - name: 🧱 Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
+          cache-dependency-path: pnpm-lock.yaml
 
-      - run: |
-          corepack enable
-          pnpm install
+      - name: 📦 Install dependencies
+        run: pnpm install
 
-      - name: Run tests & collect coverage
+      - name: 🧪 Run tests & collect coverage
         run: pnpm test:unit
 
-      - name: Upload coverage artifact
+      - name: 💾 Upload coverage as artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.node-version }}
           path: coverage/
+          retention-days: 7
 
-      - name: Upload to Codecov
+      - name: ☁️ Upload to Codecov via Bash uploader
         env:
           CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
         run: |
