@@ -25,8 +25,10 @@ jobs:
           node-version: ${{ matrix.node-version }}
           # no `cache: 'pnpm'` here, since pnpm isn't installed yet
 
-      - name: 📦 Install pnpm
-        run: npm install -g pnpm@^8
+      - name: 📦 Setup pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: ^8
 
       - name: 🔒 Cache pnpm store
         uses: actions/cache@v3
