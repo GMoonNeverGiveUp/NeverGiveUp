@@ -37,6 +37,7 @@
   },
   "dependencies": {
     "astro": "^5.10.0",
+    "ext": "^1.7.0",
     "glob": "^10.4.5",
     "vite": "^5.4.19"
   },
@@ -45,7 +46,7 @@
     "@playwright/test": "^1.53.1",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.35.0",
-    "@vitest/coverage-v8": "3.2.4",
+    "@vitest/coverage-v8": "^3.2.4",
     "astro-eslint-parser": "^1.2.2",
     "bluebird": "^2.9.21",
     "chalk": "^1.0.0",

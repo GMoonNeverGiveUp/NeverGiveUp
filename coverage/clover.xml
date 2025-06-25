@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1750802312324" clover="3.2.0">
-  <project timestamp="1750802312324" name="All files">
+<coverage generated="1750872448220" clover="3.2.0">
+  <project timestamp="1750872448220" name="All files">
     <metrics statements="673" coveredstatements="14" conditionals="18" coveredconditionals="4" methods="19" coveredmethods="4" elements="710" coveredelements="22" complexity="0" loc="673" ncloc="673" packages="9" files="18" classes="18"/>
-    <package name="NeverGiveUp">
+    <package name="galactic-genius">
       <metrics statements="26" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="eslintrc.cjs" path="/workspaces/NeverGiveUp/eslintrc.cjs">
+      <file name="eslintrc.cjs" path="/workspaces/galactic-genius/eslintrc.cjs">
         <metrics statements="6" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -13,7 +13,7 @@
         <line num="5" count="0" type="stmt"/>
         <line num="6" count="0" type="stmt"/>
       </file>
-      <file name="playwright.config.ts" path="/workspaces/NeverGiveUp/playwright.config.ts">
+      <file name="playwright.config.ts" path="/workspaces/galactic-genius/playwright.config.ts">
         <metrics statements="18" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="3" count="0" type="stmt"/>
@@ -34,19 +34,19 @@
         <line num="19" count="0" type="stmt"/>
         <line num="20" count="0" type="stmt"/>
       </file>
-      <file name="vitest.setup.ts" path="/workspaces/NeverGiveUp/vitest.setup.ts">
+      <file name="vitest.setup.ts" path="/workspaces/galactic-genius/vitest.setup.ts">
         <metrics statements="2" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.scripts">
+    <package name="galactic-genius.scripts">
       <metrics statements="36" coveredstatements="0" conditionals="2" coveredconditionals="0" methods="2" coveredmethods="0"/>
-      <file name="run.ts" path="/workspaces/NeverGiveUp/scripts/run.ts">
+      <file name="run.ts" path="/workspaces/galactic-genius/scripts/run.ts">
         <metrics statements="1" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
       </file>
-      <file name="upload-coveralls.mjs" path="/workspaces/NeverGiveUp/scripts/upload-coveralls.mjs">
+      <file name="upload-coveralls.mjs" path="/workspaces/galactic-genius/scripts/upload-coveralls.mjs">
         <metrics statements="35" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -85,9 +85,9 @@
         <line num="35" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.server">
+    <package name="galactic-genius.server">
       <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="1"/>
-      <file name="api.ts" path="/workspaces/NeverGiveUp/server/api.ts">
+      <file name="api.ts" path="/workspaces/galactic-genius/server/api.ts">
         <metrics statements="5" coveredstatements="5" conditionals="1" coveredconditionals="1" methods="2" coveredmethods="1"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="cond" truecount="1" falsecount="0"/>
@@ -96,9 +96,9 @@
         <line num="8" count="1" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src">
+    <package name="galactic-genius.src">
       <metrics statements="10" coveredstatements="3" conditionals="2" coveredconditionals="1" methods="2" coveredmethods="1"/>
-      <file name="astro.config.mjs" path="/workspaces/NeverGiveUp/src/astro.config.mjs">
+      <file name="astro.config.mjs" path="/workspaces/galactic-genius/src/astro.config.mjs">
         <metrics statements="7" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -108,16 +108,16 @@
         <line num="6" count="0" type="stmt"/>
         <line num="7" count="0" type="stmt"/>
       </file>
-      <file name="index.ts" path="/workspaces/NeverGiveUp/src/index.ts">
+      <file name="index.ts" path="/workspaces/galactic-genius/src/index.ts">
         <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="3" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src.coverage">
+    <package name="galactic-genius.src.coverage">
       <metrics statements="285" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="block-navigation.js" path="/workspaces/NeverGiveUp/src/coverage/block-navigation.js">
+      <file name="block-navigation.js" path="/workspaces/galactic-genius/src/coverage/block-navigation.js">
         <metrics statements="87" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -207,12 +207,12 @@
         <line num="86" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
       </file>
-      <file name="prettify.js" path="/workspaces/NeverGiveUp/src/coverage/prettify.js">
+      <file name="prettify.js" path="/workspaces/galactic-genius/src/coverage/prettify.js">
         <metrics statements="2" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
       </file>
-      <file name="sorter.js" path="/workspaces/NeverGiveUp/src/coverage/sorter.js">
+      <file name="sorter.js" path="/workspaces/galactic-genius/src/coverage/sorter.js">
         <metrics statements="196" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -412,9 +412,9 @@
         <line num="196" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src.coverage.lcov-report">
+    <package name="galactic-genius.src.coverage.lcov-report">
       <metrics statements="285" coveredstatements="0" conditionals="3" coveredconditionals="0" methods="3" coveredmethods="0"/>
-      <file name="block-navigation.js" path="/workspaces/NeverGiveUp/src/coverage/lcov-report/block-navigation.js">
+      <file name="block-navigation.js" path="/workspaces/galactic-genius/src/coverage/lcov-report/block-navigation.js">
         <metrics statements="87" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -504,12 +504,12 @@
         <line num="86" count="0" type="stmt"/>
         <line num="87" count="0" type="stmt"/>
       </file>
-      <file name="prettify.js" path="/workspaces/NeverGiveUp/src/coverage/lcov-report/prettify.js">
+      <file name="prettify.js" path="/workspaces/galactic-genius/src/coverage/lcov-report/prettify.js">
         <metrics statements="2" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
       </file>
-      <file name="sorter.js" path="/workspaces/NeverGiveUp/src/coverage/lcov-report/sorter.js">
+      <file name="sorter.js" path="/workspaces/galactic-genius/src/coverage/lcov-report/sorter.js">
         <metrics statements="196" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -709,9 +709,9 @@
         <line num="196" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src.pages">
+    <package name="galactic-genius.src.pages">
       <metrics statements="12" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="index.astro" path="/workspaces/NeverGiveUp/src/pages/index.astro">
+      <file name="index.astro" path="/workspaces/galactic-genius/src/pages/index.astro">
         <metrics statements="12" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -727,9 +727,9 @@
         <line num="12" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src.test">
+    <package name="galactic-genius.src.test">
       <metrics statements="8" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
-      <file name="getGreetings.ts" path="/workspaces/NeverGiveUp/src/test/getGreetings.ts">
+      <file name="getGreetings.ts" path="/workspaces/galactic-genius/src/test/getGreetings.ts">
         <metrics statements="8" coveredstatements="0" conditionals="1" coveredconditionals="0" methods="1" coveredmethods="0"/>
         <line num="1" count="0" type="cond" truecount="0" falsecount="1"/>
         <line num="2" count="0" type="stmt"/>
@@ -741,15 +741,15 @@
         <line num="9" count="0" type="stmt"/>
       </file>
     </package>
-    <package name="NeverGiveUp.src.utils">
+    <package name="galactic-genius.src.utils">
       <metrics statements="6" coveredstatements="6" conditionals="2" coveredconditionals="2" methods="2" coveredmethods="2"/>
-      <file name="getGreeting.ts" path="/workspaces/NeverGiveUp/src/utils/getGreeting.ts">
+      <file name="getGreeting.ts" path="/workspaces/galactic-genius/src/utils/getGreeting.ts">
         <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="2" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="2" type="stmt"/>
       </file>
-      <file name="nguness.ts" path="/workspaces/NeverGiveUp/src/utils/nguness.ts">
+      <file name="nguness.ts" path="/workspaces/galactic-genius/src/utils/nguness.ts">
         <metrics statements="3" coveredstatements="3" conditionals="1" coveredconditionals="1" methods="1" coveredmethods="1"/>
         <line num="1" count="1" type="cond" truecount="1" falsecount="0"/>
         <line num="2" count="2" type="stmt"/>
