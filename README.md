@@ -1,4 +1,7 @@
-[![codecov](https://codecov.io/gh/GMoonNeverGiveUp/galactic-genius/branch/main/graph/badge.svg)](https://codecov.io/gh/GMoonNeverGiveUp/NeverGiveUp)
+# galactic-genius
+
+[![Coverage (Node 18.x)](https://codecov.io/gh/GMoonNeverGiveUp/galactic-genius/branch/main/graph/badge.svg?flag=unit-18.x)](https://app.codecov.io/gh/GMoonNeverGiveUp/galactic-genius)
+
 
 ## 🧪 CI Status
 
