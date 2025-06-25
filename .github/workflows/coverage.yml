@@ -11,40 +11,37 @@ jobs:
   coverage:
     name: Generate & Upload Coverage
     runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [18.x, 20.x]
 
     steps:
-      - name: 📥 Checkout repository
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: 🧱 Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           cache: pnpm
 
-      - name: 📦 Install dependencies
-        run: |
+      - run: |
           corepack enable
           pnpm install
 
-      - name: 🧪 Run tests & collect coverage
+      - name: Run tests & collect coverage
         run: pnpm test:unit
 
-      - name: 💾 Upload coverage as artifact
+      - name: Upload coverage artifact
         uses: actions/upload-artifact@v4
         with:
           name: coverage-${{ matrix.node-version }}
           path: coverage/
-          retention-days: 7
 
-      - name: ☁️ Upload to Codecov
-        uses: codecov/codecov-action@v4
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          files: |
-            coverage/lcov.info
-            coverage/clover.xml
-          flags: unit-${{ matrix.node-version }}
+      - name: Upload to Codecov
+        env:
+          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
+        run: |
+          bash <(curl -s https://codecov.io/bash) \
+            -f coverage/lcov.info \
+            -F unit-${{ matrix.node-version }}
