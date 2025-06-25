@@ -11,7 +11,6 @@ jobs:
   coverage:
     name: Generate & Upload Coverage
     runs-on: ubuntu-latest
-
     strategy:
       matrix:
         node-version: [18.x, 20.x]
@@ -20,15 +19,22 @@ jobs:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🧱 Install pnpm
-        run: npm install -g pnpm
-
       - name: 🧱 Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-          cache: pnpm
-          cache-dependency-path: pnpm-lock.yaml
+          # no `cache: 'pnpm'` here, since pnpm isn't installed yet
+
+      - name: 📦 Install pnpm
+        run: npm install -g pnpm@^8
+
+      - name: 🔒 Cache pnpm store
+        uses: actions/cache@v3
+        with:
+          path: ~/.pnpm-store
+          key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-pnpm-store-
 
       - name: 📦 Install dependencies
         run: pnpm install
