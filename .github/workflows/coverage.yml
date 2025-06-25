@@ -40,10 +40,11 @@ jobs:
           path: coverage/
           retention-days: 7
 
-      - name: ☁️ Upload to Codecov via Bash uploader
-        env:
-          CODECOV_TOKEN: ${{ secrets.CODECOV_TOKEN }}
-        run: |
-          bash <(curl -s https://codecov.io/bash) \
-            -f coverage/lcov.info \
-            -F unit-${{ matrix.node-version }}
+      - name: ☁️ Upload to Codecov
+        uses: codecov/codecov-action@v4
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          files: |
+            coverage/lcov.info
+            coverage/clover.xml
+          flags: unit-${{ matrix.node-version }}
