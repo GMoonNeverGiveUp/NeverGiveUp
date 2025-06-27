@@ -2,15 +2,11 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "module": "Node16",
     "composite": true,
     "outDir": "../dist/src",
     "rootDir": ".",
     "tsBuildInfoFile": "../dist/src/tsconfig.src.tsbuildinfo"
   },
-  "include": [
-    "src",
-    "**/*.astro",
-    "**/*.ts",
-    "**/*.tsx"
-  ]
+  "include": ["src", "**/*.astro", "**/*.ts", "**/*.tsx", "index.ts"]
 }

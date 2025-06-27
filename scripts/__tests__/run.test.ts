@@ -1,8 +1,9 @@
-import { describe, it, expect } from 'vitest'
-import { fromSrc } from '@src/index'
+import { describe, test, expect } from 'vitest'
+import { fromSrc } from '../../src/index'
 
-describe('🛠 Script: run.ts', () => {
-  it('should return the correct greeting from fromSrc()', () => {
-    expect(fromSrc()).toBe('👋 Hello from the src workspace!')
+describe('🛠 run.ts helper', () => {
+  test('returns the greeting from the src workspace', () => {
+    const greeting = fromSrc()
+    expect(greeting).toBe('👋 Hello from the src workspace!')
   })
 })

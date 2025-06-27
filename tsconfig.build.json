@@ -1,25 +1,28 @@
 // tsconfig.build.json
 {
   "extends": "./tsconfig.base.json",
+
+  // No files of its own—just a references container
   "files": [],
+
   "compilerOptions": {
     "composite": true,
     "incremental": true,
-    "tsBuildInfoFile": "./dist/root.tsbuildinfo",
-    "noEmit": true
+    "noEmit": true,
+    "tsBuildInfoFile": "./dist/root.tsbuildinfo"
   },
+
+  // Point at each sub-project
   "references": [
     { "path": "./src" },
     { "path": "./server" },
     { "path": "./scripts" }
   ],
+
+  // Only skip the usual noise folders
   "exclude": [
     "node_modules",
     "dist",
-    "coverage",
-    "**/*.test-d.ts",
-    "src/**/*",
-    "server/**/*",
-    "scripts/**/*"
+    "coverage"
   ]
 }

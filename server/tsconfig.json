@@ -1,14 +1,19 @@
-// server/tsconfig.json
 {
-  "extends": "../tsconfig.base.json",
   "compilerOptions": {
-    "composite": true,
-    "outDir": "../dist/server",
+    "module": "Node16",
+    "moduleResolution": "NodeNext",
+    "target": "ES2022",
+    "strict": true,
+    "outDir": "dist",
     "rootDir": ".",
-    "tsBuildInfoFile": "../dist/server/tsconfig.server.tsbuildinfo"
+    "allowJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true
   },
   "include": [
-    "**/*.ts",
-    "**/__tests__/**/*"
+    "api.ts",
+    "src/**/*",
+    "__tests__/**/*",
   ]
 }

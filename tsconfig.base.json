@@ -1,15 +1,19 @@
-// tsconfig.build.json
+// tsconfig.base.json (at /workspaces/galactic-genius/)
 {
-  "files": [],                // no files at the root
-  "references": [
-    { "path": "./src" },
-    { "path": "./server" },
-    { "path": "./scripts" }
-  ],
   "compilerOptions": {
-    "composite": true,
-    "incremental": true,
-    "noEmit": true,                       // we only emit in the subprojects
-    "tsBuildInfoFile": "./dist/root.tsbuildinfo"
+    "target": "ES2021",                 // private fields ok
+    "module": "ESNext",
+    "moduleResolution": "Node16",       // fixes rollup/parseAst import
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "baseUrl": ".",                     // so paths work
+    "paths": {
+      "@src/*":   ["src/*"],
+      "@server/*":["server/*"],
+      "@scripts/*":["scripts/src/*"]
+    }
   }
 }

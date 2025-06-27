@@ -2,13 +2,17 @@
 {
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
+    "module": "Node16",                 // must match moduleResolution
+    "moduleResolution": "Node16",
+    "target": "ES2021",
     "composite": true,
-    "outDir": "../dist/scripts",
-    "rootDir": ".",
-    "tsBuildInfoFile": "../dist/scripts/tsconfig.scripts.tsbuildinfo"
+    "incremental": true,
+    "rootDir": ".",                   // only your real code lives here
+    "outDir": "build",
+    "tsBuildInfoFile": "build/tsconfig.scripts.tsbuildinfo",
+    "esModuleInterop": true,
+    "skipLibCheck": true
   },
-  "include": [
-    "**/*.ts",
-    "**/__tests__/**/*"
-  ]
+  "include": ["**/*.ts"],
+  "exclude": ["node_modules", "build", "**/__tests__/**"]
 }

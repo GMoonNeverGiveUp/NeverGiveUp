@@ -15,5 +15,6 @@
   },
 
   "eslint.validate": ["typescript", "typescriptreact"],
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "remote.autoForwardPortsFallback": 0
 }

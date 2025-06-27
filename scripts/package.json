@@ -4,11 +4,22 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "mkdir -p build && echo '#!/bin/bash\\necho OK' > build/init.sh && chmod +x build/init.sh && echo '🛠️ Scripts compiled to build/init.sh'",
-    "dev": "echo '🚫 No dev mode available for scripts workspace.'",
-    "lint": "echo '🔎 Linting utility scripts...' && exit 0",
-    "test": "echo '🧪 Running basic script tests (none defined)...' && exit 0"
+    "clean": "rimraf build",
+    "build": "tsc --build tsconfig.json",
+    "lint": "eslint . --ext .ts --config ../.eslintrc.mjs",
+    "lint:fix": "eslint src --ext .ts --fix --config ../eslint.config.js",    "typecheck": "tsc --noEmit --project tsconfig.json",
+    "test": "vitest --config $(pwd)/vitest.config.ts --root src",
+    "test:watch": "vitest --watch --config ../vitest.config.ts --root src",
+    "coverage": "vitest run --coverage --config ../vitest.config.ts --root src",
+    "coverage:html": "vitest run --coverage --coverage-reporter=html --config ../vitest.config.ts --root src"
   },
-  "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "@vitest/coverage-v8": "^3.2.4",
+    "@typescript-eslint/eslint-plugin": "^8.35.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "eslint": "^9.29.0",
+    "rimraf": "^6.0.1",
+    "typescript": "^5.8.3",
+    "vitest": "^3.2.4"
+  }
 }

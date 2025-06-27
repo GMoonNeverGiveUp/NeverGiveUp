@@ -1,43 +1,32 @@
-// src/eslint.config.js
-import js from '@eslint/js';
-import globals from 'globals';
-import parser from '@typescript-eslint/parser';
+// eslint.config.js
+import { defineConfig } from 'eslint-define-config';
 
-export default [
-  js.configs.recommended,
-  {
-    files: ['**/*.ts', '**/*.js', '**/*.astro'],
-    languageOptions: {
-      parser, // ✅ This is now a correct parser object
-      parserOptions: {
-        ecmaVersion: 'latest',
-        sourceType: 'module',
-      },
-      globals: {
-        ...globals.node,
-        ...globals.es2021,
-        ...globals.jest,
-      },
+export default defineConfig({
+  root: true,
+  ignores: ['node_modules/**', 'dist/**', '**/*.tsbuildinfo'],
+  overrides: [
+    {
+      files: ['*.astro'],
+      parser: 'astro-eslint-parser',
+      extends: ['plugin:astro/recommended']
     },
-    rules: {
-      // ✅ General Best Practices
-      'no-console': 'warn',
-      'no-debugger': 'error',
-      'eqeqeq': ['error', 'always'],
-
-      // ✅ Code Style
-      'semi': ['error', 'always'],
-      'quotes': ['error', 'single'],
-      'comma-dangle': ['error', 'always-multiline'],
-      'indent': ['error', 2, { SwitchCase: 1 }],
-
-      // ✅ Modern Practices
-      'prefer-const': 'error',
-      'no-var': 'error',
-      'object-shorthand': ['error', 'always'],
-
-      // ✅ Testing Globals
-      'no-undef': 'off',
-    },
-  },
-];
+    {
+      files: ['*.js', '*.ts', '*.jsx', '*.tsx'],
+      parser: '@typescript-eslint/parser',
+      plugins: ['@typescript-eslint'],
+      extends: [
+        'eslint:recommended',
+        'plugin:@typescript-eslint/recommended',
+        'prettier'
+      ],
+      rules: {
+        quotes: ['error', 'single', { avoidEscape: true }],
+        semi: ['error', 'always'],
+        '@typescript-eslint/no-unused-vars': [
+          'warn',
+          { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }
+        ]
+      }
+    }
+  ]
+});

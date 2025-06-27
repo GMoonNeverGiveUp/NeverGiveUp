@@ -1,8 +1,15 @@
 // vitest.config.ts
-import { defineConfig } from 'vitest/config'
-import * as path from 'node:path'
+import { defineConfig } from 'vitest/config';
+import path from 'node:path';
 
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@src':     path.resolve(__dirname, './src'),
+      '@server':  path.resolve(__dirname, './server/src'),
+      '@scripts': path.resolve(__dirname, './scripts/src'),
+    },
+  },
   test: {
     globals: true,
     environment: 'node',
@@ -11,24 +18,11 @@ export default defineConfig({
       'server/**/*.{test,spec}.ts',
       'scripts/**/*.{test,spec}.ts',
     ],
-    exclude: [
-      '**/tests/e2e/**',
-      '**/__tests__/**/e2e.*',
-    ],
     coverage: {
-      enabled: true,
       provider: 'v8',
-      reportsDirectory: './coverage',
       reporter: ['text', 'html', 'lcov', 'clover'],
-    },
-    reporters: ['default'],
-  },
-  resolve: {
-    alias: {
-      '@src': path.resolve(__dirname, './src'),
-      '@server': path.resolve(__dirname, './server'),
-      '@scripts': path.resolve(__dirname, './scripts'),
+      reportsDirectory: './coverage',
     },
   },
-  esbuild: { target: 'esnext' },
-})
+  esbuild: { target: 'es2021' }
+});

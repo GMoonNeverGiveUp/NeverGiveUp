@@ -1,4 +1,6 @@
 packages:
-  - "src"
-  - "server"
-  - "scripts"
+  - src
+  - server
+  - scripts
+onlyBuiltDependencies:
+  - esbuild
