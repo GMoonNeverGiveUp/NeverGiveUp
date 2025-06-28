@@ -1,0 +1,18 @@
+{
+  "name": "eslint-config-nebulae",
+  "version": "1.0.2",
+  "description": "A shareable flat-config ESLint setup for TS, Astro, JSON, Prettier, import-order, etc.",
+  "main": "index.cjs",
+  "peerDependencies": {
+    "eslint": "^9.0.0",
+    "@eslint/js": "*",
+    "@typescript-eslint/parser": "*",
+    "@typescript-eslint/eslint-plugin": "*",
+    "eslint-plugin-import": "*",
+    "eslint-plugin-astro": "*",
+    "eslint-plugin-jsonc": "*",
+    "jsonc-eslint-parser": "*",
+    "eslint-config-prettier": "*"
+  },
+  "license": "MIT"
+}
