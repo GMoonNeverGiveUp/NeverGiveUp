@@ -1,25 +1,46 @@
 {
   "compilerOptions": {
+    // ✅ Build Config
     "composite": true,
-    "type": "module",
-    "types": ["vitest/globals"],
     "rootDir": "src",
     "outDir": "../dist/scripts",
     "tsBuildInfoFile": "../dist/scripts/tsconfig.scripts.tsbuildinfo",
-    "module": "Node16",
-    "target": "ES2020",
-    "resolveJsonModule": true,
-    "moduleResolution": "node16",
+
+    // ✅ Modern ESM support
+    "module": "NodeNext",               // ← aligns with node16+nodenext standards
+    "moduleResolution": "nodenext",
+    "target": "ES2021",                 // modern async/await, top-level await
+
+    // ✅ Vitest & Type Support
+    "types": ["vitest/globals"],
+    "typeRoots": ["./node_modules/@types"],
+
+    // ✅ Module Interop for `path`, `fs`, etc.
     "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+
+    // ✅ Helpful Defaults
+    "resolveJsonModule": true,
     "skipLibCheck": true,
+
+    // ✅ Path Aliases
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["../src/*"]
-    },
-    "typeRoots": ["./node_modules/@types"]
+      "@src/*": ["../src/*"],
+      "@scripts/*": ["./src/*"]
+    }
   },
-  "include": ["src/**/*.ts", "src/**/*.test.ts", "src/index.ts"],
-  "exclude": ["node_modules", "../node_modules", "dist"],
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts",
+    "src/index.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "../node_modules",
+    "dist"
+  ],
   "files": [],
   "references": [
     { "path": "./scripts" },
