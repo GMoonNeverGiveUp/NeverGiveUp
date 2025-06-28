@@ -34,8 +34,8 @@ jobs:
       - name: 🛠 Build only the src package
         run: pnpm --filter src build
 
-      - name: 🚀 Start app server
-        run: pnpm --filter src dev &
+      - name: 🚀 Start preview server
+        run: pnpm --filter src preview -- --port 3000 &
         env:
           NODE_ENV: test
 
