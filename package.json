@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "private": true,
   "packageManager": "pnpm@10.11.0",
+  "engines": {
+    "node": ">=18.0.0"
+  },
   "workspaces": [
     "src",
     "server",
@@ -10,22 +13,30 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "clean": "rimraf dist /**/*.tsbuildinfo",
+    "clean": "rimraf dist **/*.tsbuildinfo",
     "tsc:build": "tsc --build tsconfig.build.json",
     "build": "pnpm run clean && pnpm run tsc:build && pnpm -r run build",
     "build:web": "pnpm --filter src run build",
     "build:api": "pnpm --filter server run build",
     "build:scripts": "pnpm --filter scripts run build",
+
     "dev": "turbo run dev --parallel",
     "dev:web": "pnpm --filter src run dev",
     "dev:api": "pnpm --filter server run dev",
+
+    "preview:web": "pnpm --filter src run preview",
+
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx,.astro --fix",
+
     "typecheck": "pnpm run tsc:build",
+
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest --watch",
-    "pretest:e2e": "playwright install --with-deps",
-    "test:e2e": "start-server-and-test \"pnpm run dev:web\" http://localhost:3000 \"pnpm exec playwright test\"",
+
+    "pretest:e2e": "pnpm exec playwright install --with-deps",
+    "test:e2e": "start-server-and-test \"pnpm run preview:web\" http://localhost:3000 \"pnpm exec playwright test\"",
+
     "check": "pnpm run clean && pnpm run lint && pnpm run typecheck && pnpm run test:unit",
     "check:all": "pnpm run check && pnpm run test:e2e"
   },
@@ -65,12 +76,6 @@
       "inflight": "1.0.6",
       "rimraf": "^6.0.1"
     },
-    "onlyBuiltDependencies": [
-      "esbuild",
-      "sharp"
-    ]
-  },
-  "engines": {
-    "node": ">=16"
+    "onlyBuiltDependencies": ["esbuild", "sharp"]
   }
 }
