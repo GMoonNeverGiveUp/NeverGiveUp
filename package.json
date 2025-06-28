@@ -52,6 +52,7 @@
     "jsonc-eslint-parser": "^2.4.0",
     "rimraf": "^6.0.1",
     "start-server-and-test": "^2.0.12",
+    "test-exclude": "5.2.3",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3",
     "vitest": "^0.34.6",
