@@ -45,7 +45,7 @@ jobs:
         run: pnpm --filter src build
 
       - name: 🚀 Start preview server
-        run: pnpm --filter src preview -- --port 3000 &
+        run: pnpm --filter src run preview:web &
         env:
           NODE_ENV: test
 

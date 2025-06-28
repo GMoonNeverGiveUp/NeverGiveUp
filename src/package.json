@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "astro dev",
-    "build": "astro build",
+    "preview:web": "astro preview --port 3000",
     "preview": "astro preview",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.astro",
     "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx,.astro --fix",
