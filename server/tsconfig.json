@@ -9,11 +9,15 @@
     "allowJs": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
   "include": [
-    "api.ts",
     "src/**/*",
-    "__tests__/**/*",
+    "__tests__/**/*"
+  ],
+  "exclude": [
+    "dist",
+    "node_modules"
   ]
 }

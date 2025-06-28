@@ -2,7 +2,6 @@
   "name": "galactic-genius-monorepo",
   "version": "1.0.0",
   "private": true,
-  "type": "module",
   "packageManager": "pnpm@10.11.0",
   "workspaces": [
     "src",
@@ -11,51 +10,66 @@
   ],
   "scripts": {
     "bootstrap": "pnpm install",
-    "clean": "rimraf dist \"**/*.tsbuildinfo\"",
+    "clean": "rimraf dist /**/*.tsbuildinfo",
     "tsc:build": "tsc --build tsconfig.build.json",
-    "build": "pnpm run tsc:build && pnpm -r run build",
-    "build:web": "pnpm --filter galactic-genius-src run build",
+    "build": "pnpm run clean && pnpm run tsc:build && pnpm -r run build",
+    "build:web": "pnpm --filter src run build",
     "build:api": "pnpm --filter server run build",
     "build:scripts": "pnpm --filter scripts run build",
-    "typecheck": "pnpm run tsc:build",
     "dev": "turbo run dev --parallel",
-    "dev:web": "pnpm --filter galactic-genius-src run dev",
+    "dev:web": "pnpm --filter src run dev",
     "dev:api": "pnpm --filter server run dev",
-    "lint": "pnpm -r run lint",
-    "lint:fix": "pnpm -r run lint:fix",
+    "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.astro",
+    "lint:fix": "eslint . --ext .js,.ts,.jsx,.tsx,.astro --fix",
+    "typecheck": "pnpm run tsc:build",
     "test:unit": "vitest run --coverage",
     "test:unit:watch": "vitest --watch",
-    "coverage": "vitest run --coverage",
-    "coverage:html": "vitest run --coverage --coverage-reporter=html",
-    "coverage:upload": "bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN -f coverage/lcov.info",
     "pretest:e2e": "playwright install --with-deps",
-    "test:e2e": "pnpm run pretest:e2e && pnpm exec wait-on http://localhost:3000 && pnpm exec playwright test --project=chromium --project=firefox --project=webkit --project=edge",
-    "test:e2e:ui": "pnpm run pretest:e2e && pnpm exec wait-on http://localhost:3000 && pnpm exec playwright test --headed --project=chromium --project=edge",
+    "test:e2e": "start-server-and-test \"pnpm run dev:web\" http://localhost:3000 \"pnpm exec playwright test\"",
     "check": "pnpm run clean && pnpm run lint && pnpm run typecheck && pnpm run test:unit",
     "check:all": "pnpm run check && pnpm run test:e2e"
   },
   "dependencies": {
+    "@types/node": "^24.0.7",
     "astro": "^5.10.0",
     "glob": "^10.4.5",
+    "lodash": "^4.17.21",
     "vite": "^5.4.19"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.3.1",
-    "@eslint/js": "^9.29.0",
+    "@eslint/js": "^9.30.0",
     "@playwright/test": "^1.53.1",
     "@typescript-eslint/eslint-plugin": "^8.35.0",
     "@typescript-eslint/parser": "^8.35.0",
-    "@vitest/coverage-v8": "^3.2.4",
-    "eslint": "^9.29.0",
+    "@vitest/coverage-v8": "^0.34.6",
+    "astro-eslint-parser": "^1.2.2",
+    "eslint": "^9.30.0",
     "eslint-config-prettier": "^10.1.5",
     "eslint-plugin-astro": "^1.3.1",
     "eslint-plugin-import": "^2.32.0",
     "eslint-plugin-jsonc": "^2.20.1",
+    "jsonc-eslint-parser": "^2.4.0",
     "rimraf": "^6.0.1",
     "start-server-and-test": "^2.0.12",
     "turbo": "^2.5.4",
     "typescript": "^5.8.3",
-    "vitest": "^3.2.4",
+    "vitest": "^0.34.6",
     "wait-on": "^8.0.3"
+  },
+  "pnpm": {
+    "overrides": {
+      "esbuild": ">=0.25.0",
+      "glob": "^11.0.3",
+      "inflight": "1.0.6",
+      "rimraf": "^6.0.1"
+    },
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
+  },
+  "engines": {
+    "node": ">=16"
   }
 }

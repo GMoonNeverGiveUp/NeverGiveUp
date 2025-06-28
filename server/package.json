@@ -4,12 +4,21 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "echo '✅ Backend build successful.'",
-    "dev": "echo '🛰️ Starting backend server on http://localhost:4000...'",
-    "lint": "echo '🔎 Linting server workspace...' && exit 0",
-    "test": "echo '🧪 Running server tests...' && exit 0",
-    "start": "node ./server.js"
+    "build": "tsc --build tsconfig.json",
+    "dev":   "node --loader ts-node/esm --inspect=0.0.0.0:9229 src/api.ts",
+    "lint":  "eslint \"src/**/*.{js,ts}\" --config ../.eslintrc.cjs",
+    "test":  "vitest run --coverage",
+    "start": "node dist/api.js"
   },
   "dependencies": {},
-  "devDependencies": {}
+  "devDependencies": {
+    "typescript": "^5.8.3",
+    "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
+    "vitest": "^0.34.6",
+    "@vitest/coverage-v8": "^0.34.6",
+    "eslint": "^9.30.0",
+    "@typescript-eslint/parser": "^8.35.0",
+    "@typescript-eslint/eslint-plugin": "^8.35.0"
+  }
 }

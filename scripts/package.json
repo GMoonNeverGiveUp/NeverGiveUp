@@ -6,9 +6,9 @@
   "scripts": {
     "clean": "rimraf build",
     "build": "tsc --build tsconfig.json",
-    "lint": "eslint . --ext .ts --config ../.eslintrc.mjs",
+    "lint": "eslint . --ext .ts",
     "lint:fix": "eslint src --ext .ts --fix --config ../eslint.config.js",    "typecheck": "tsc --noEmit --project tsconfig.json",
-    "test": "vitest --config $(pwd)/vitest.config.ts --root src",
+    "test": "vitest --config ../../vitest.config.ts --root src",
     "test:watch": "vitest --watch --config ../vitest.config.ts --root src",
     "coverage": "vitest run --coverage --config ../vitest.config.ts --root src",
     "coverage:html": "vitest run --coverage --coverage-reporter=html --config ../vitest.config.ts --root src"

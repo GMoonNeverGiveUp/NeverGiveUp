@@ -1,0 +1,43 @@
+name: IPFS Lint
+
+on:
+  push:
+    paths:
+      - "scripts/**"
+  pull_request:
+    paths:
+      - "scripts/**"
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: scripts
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Fetch ESLint config from IPFS
+        run: |
+          curl -L https://ipfs.io/ipfs/QmXpx5wgZ8K7CBVtq51VB7Eg6znutyyHtEm3kpBn9EVfzP -o eslint-config-nebulae.tgz
+          mkdir -p ipfs-eslint && tar -xzf eslint-config-nebulae.tgz -C ipfs-eslint
+          pnpm add -D ./ipfs-eslint/package
+
+      - name: Install peer dependencies
+        run: |
+          pnpm add -D eslint \
+            @typescript-eslint/eslint-plugin \
+            @typescript-eslint/parser \
+            eslint-plugin-import \
+            eslint-plugin-astro \
+            eslint-plugin-jsonc \
+            jsonc-eslint-parser \
+            eslint-config-prettier
+
+      - name: Lint (IPFS config)
+        run: pnpm exec eslint . --config eslint.config.cjs

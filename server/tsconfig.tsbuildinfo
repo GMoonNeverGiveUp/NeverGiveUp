@@ -1,1 +1,1 @@
-{"root":["./api.ts","./__tests__/api.test.ts","./__tests__/ngu-core.test.d.ts"],"version":"5.8.3"}
+{"root":["./src/api.ts","./src/index.ts","./__tests__/api.test.ts","./__tests__/ngu-core.test.d.ts","./__tests__/ngu-core.test.js"],"errors":true,"version":"5.8.3"}

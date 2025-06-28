@@ -5,14 +5,17 @@
     "module": "Node16",                 // must match moduleResolution
     "moduleResolution": "Node16",
     "target": "ES2021",
-    "composite": true,
-    "incremental": true,
-    "rootDir": ".",                   // only your real code lives here
-    "outDir": "build",
+       "incremental": true,
+    "composite": true,                   // enable project references
+    "rootDir": "..",                    // only your real code lives here
+    "outDir": "../dist/scripts",
     "tsBuildInfoFile": "build/tsconfig.scripts.tsbuildinfo",
     "esModuleInterop": true,
     "skipLibCheck": true
   },
-  "include": ["**/*.ts"],
+  "include": [
+    "run.ts",
+    "../src/index.ts"
+  ],
   "exclude": ["node_modules", "build", "**/__tests__/**"]
 }
