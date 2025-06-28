@@ -1,18 +1,18 @@
-// server/__tests__/api.test.ts
-import { describe, it, expect, vi } from 'vitest'
-import * as srcModule from '../src/index.js'
-const spy = vi.spyOn(srcModule, 'fromSrc').mockReturnValue('Hello')
-import { handler, serverHello } from '../api.js'
+import { describe, it, expect, vi } from 'vitest';
+import * as core from '../src/index.js';    // your library entry
+import { handler, serverHello } from '../api.js';
 
-describe('🌐 Server API', () => {
-  it('handler() returns OK status', async () => {
-    const result = await handler()
-    expect(result).toHaveProperty('status', 'OK')
-  })
+describe('🌐 server/api', () => {
+  it('handler() returns OK', async () => {
+    const res = await handler();
+    expect(res).toEqual({ status: 'OK', message: 'Server up!' });
+  });
 
-  it('serverHello() uses fromSrc() and adds suffix', () => {
-    const greeting = serverHello()
-    expect(spy).toHaveBeenCalled()
-    expect(greeting).toBe('Hello from server')
-  })
-})
+  it('serverHello() delegates to fromSrc()', () => {
+    const spy = vi.spyOn(core, 'fromSrc').mockReturnValue('Yo');
+    const result = serverHello();
+    expect(spy).toHaveBeenCalledOnce();
+    expect(result).toBe('Yo from server');
+    spy.mockRestore();
+  });
+});
