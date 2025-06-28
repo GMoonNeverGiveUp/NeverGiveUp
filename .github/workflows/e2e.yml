@@ -28,8 +28,15 @@ jobs:
         with:
           version: latest
 
-      - name: 📦 Install dependencies
+      - name: 📦 Install dependencies (monorepo only)
         run: pnpm install --frozen-lockfile
+
+      - name: 🔗 Install eslint-config-nebulae via IPFS
+        run: |
+          curl -L https://ipfs.io/ipfs/QmUDASMgjNobfGELY1NaDTyrQ1U8FZvxsE4EBHPyDNBiCY -o eslint-config-nebulae.tgz
+          mkdir -p ipfs-eslint
+          tar -xzf eslint-config-nebulae.tgz -C ipfs-eslint
+          pnpm add -D ./ipfs-eslint/package
 
       - name: 🛠 Build only the src package
         run: pnpm --filter src build
