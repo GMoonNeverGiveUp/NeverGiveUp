@@ -14,15 +14,25 @@ export default defineConfig({
     globals: true,
     environment: 'node',
     include: [
-      'src/**/*.{test,spec}.ts',
-      'server/**/*.{test,spec}.ts',
-      'scripts/**/*.{test,spec}.ts',
+      'src/**/*.{test,spec}.{ts,tsx}',
+      'server/**/*.{test,spec}.{ts,tsx}',
+      'scripts/**/*.{test,spec}.{ts,tsx}',
     ],
     coverage: {
       provider: 'v8',
       reporter: ['text', 'html', 'lcov', 'clover'],
       reportsDirectory: './coverage',
+      all: true,
+      exclude: [
+        '**/node_modules/**',
+        '**/dist/**',
+        '**/coverage/**',
+        '**/.pnpm/**',
+      ],
     },
   },
-  esbuild: { target: 'es2021' }
+  esbuild: {
+    target: 'es2021',
+    format: 'esm',
+  },
 });

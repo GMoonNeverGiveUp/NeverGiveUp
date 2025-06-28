@@ -1,9 +1,9 @@
 {
-  "name": "galactic-genius-src",
+  "name": "src",
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "astro dev --port 3000",
+    "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
     "lint": "eslint . --ext .js,.ts,.jsx,.tsx,.astro",
