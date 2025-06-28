@@ -1,50 +1,46 @@
 {
   "compilerOptions": {
-    // ✅ Build Config
+    // Core Build Settings
     "composite": true,
-    "rootDir": "src",
-    "outDir": "../dist/scripts",
-    "tsBuildInfoFile": "../dist/scripts/tsconfig.scripts.tsbuildinfo",
+    "rootDir": ".",                                // Use project root
+    "outDir": "dist",                              // Single dist target
+    "tsBuildInfoFile": "dist/tsconfig.tsbuildinfo",
 
-    // ✅ Modern ESM support
-    "module": "NodeNext",               // ← aligns with node16+nodenext standards
-    "moduleResolution": "nodenext",
-    "target": "ES2021",                 // modern async/await, top-level await
-
-    // ✅ Vitest & Type Support
-    "types": ["vitest/globals"],
-    "typeRoots": ["./node_modules/@types"],
-
-    // ✅ Module Interop for `path`, `fs`, etc.
+    // Module System & Modern Support
+    "module": "NodeNext",
+    "moduleResolution": "NodeNext",
+    "target": "ES2021",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-
-    // ✅ Helpful Defaults
     "resolveJsonModule": true,
     "skipLibCheck": true,
 
-    // ✅ Path Aliases
+    // Type Definitions & Globals
+    "types": ["vitest/globals"],
+    "typeRoots": ["node_modules/@types"],
+
+    // Aliases
     "baseUrl": ".",
     "paths": {
-      "@src/*": ["../src/*"],
-      "@scripts/*": ["./src/*"]
+      "@src/*": ["src/*"],
+      "@scripts/*": ["scripts/src/*"]
     }
   },
   "include": [
-    "src/**/*.ts",
-    "src/**/*.test.ts",
-    "src/**/*.spec.ts",
-    "src/index.ts"
+    "src",
+    "server",
+    "scripts",
+    "vitest.config.ts",
+    "vitest.setup.ts",
+    "global.d.ts"
   ],
   "exclude": [
-    "node_modules",
-    "../node_modules",
-    "dist"
+    "dist",
+    "node_modules"
   ],
-  "files": [],
   "references": [
-    { "path": "./scripts" },
+    { "path": "./src" },
     { "path": "./server" },
-    { "path": "./src" }
+    { "path": "./scripts" }
   ]
 }
