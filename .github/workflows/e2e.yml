@@ -41,7 +41,7 @@ jobs:
           tar -xzf eslint-config-nebulae.tgz -C ipfs-eslint
           pnpm add -D ./ipfs-eslint/package
 
-      - name: 🛠 Build only the src package
+      - name: 🛠 Build the site
         run: pnpm --filter src build
 
       - name: 🚀 Start preview server
@@ -49,15 +49,16 @@ jobs:
         env:
           NODE_ENV: test
 
-      - name: ⏳ Wait for local server
+      - name: ⏳ Wait for preview to be ready
         run: |
-          echo "Waiting for http://localhost:3000..."
-          for i in {1..30}; do
-            if curl --silent --fail http://localhost:3000 > /dev/null; then
-              echo "✅ Server is up!"
-              break
+          n=0
+          until curl --silent http://localhost:3000 >/dev/null; do
+            n=$((n + 1))
+            if [ $n -ge 30 ]; then
+              echo "❌ Server failed to start after 60 seconds"
+              exit 1
             fi
-            echo "…still waiting ($i)…"
+            echo "…waiting for server ($n)"
             sleep 2
           done
 
