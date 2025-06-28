@@ -14,47 +14,56 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: ⬇️ Checkout repo
+      - name: ⬇️ Checkout repository
         uses: actions/checkout@v4
 
-      - name: 🧰 Setup Node.js and pnpm
+      - name: ⚙️ Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'pnpm'
+
+      - name: 💾 Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 8
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 18
+          version: latest
 
       - name: 📦 Install dependencies
-        run: pnpm install
+        run: pnpm install --frozen-lockfile
 
-      - name: 🛠 Build app
+      - name: 🛠 Build only the src package
         run: pnpm --filter src build
 
       - name: 🚀 Start app server
-        run: |
-          pnpm --filter src dev & # or use a specific start script
+        run: pnpm --filter src dev &
         env:
           NODE_ENV: test
-        continue-on-error: true
 
       - name: ⏳ Wait for local server
-        uses: jakejarvis/wait-action@v0.1.0
+        run: |
+          echo "Waiting for http://localhost:3000..."
+          for i in {1..30}; do
+            if curl --silent --fail http://localhost:3000 > /dev/null; then
+              echo "✅ Server is up!"
+              break
+            fi
+            echo "…still waiting ($i)…"
+            sleep 2
+          done
+
+      - name: 🖥️ Setup Playwright & Browsers
+        uses: microsoft/playwright-github-action@v1
         with:
-          url: http://localhost:3000
-          timeout: 60
+          install-deps: false
+          browsers: all
 
-      - name: 🎭 Install Playwright Browsers
-        run: npx playwright install --with-deps
+      - name: 🧪 Run Playwright E2E suite
+        run: pnpm test:e2e --forbid-only --reporter=dot
 
-      - name: 🧪 Run Playwright tests
-        run: pnpm test:e2e
-
-      - name: 📤 Upload Playwright test traces (on failure)
+      - name: 📤 Upload Playwright trace on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: playwright-trace
           path: |
-            test-results/
-            **/playwright-report/
+            test-results/**
