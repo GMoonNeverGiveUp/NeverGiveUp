@@ -26,7 +26,10 @@ jobs:
       - name: 💾 Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: latest
+          version: 8 # or "latest"
+
+      - name: 🔧 Add pnpm to PATH
+        run: echo "${HOME}/.local/share/pnpm" >> $GITHUB_PATH
 
       - name: 📦 Install dependencies (monorepo only)
         run: pnpm install --frozen-lockfile
