@@ -19,8 +19,8 @@
     "build:web": "pnpm --filter src run build",
     "build:api": "pnpm --filter server run build",
     "build:scripts": "pnpm --filter scripts run build",
-
-    "dev": "turbo run dev --parallel",
+    
+    "dev": "astro dev --port 3000",
     "dev:web": "pnpm --filter src run dev",
     "dev:api": "pnpm --filter server run dev",
 
@@ -35,7 +35,7 @@
     "test:unit:watch": "vitest --watch",
 
     "pretest:e2e": "pnpm exec playwright install --with-deps",
-    "test:e2e": "start-server-and-test \"pnpm run preview:web\" http://localhost:3000 \"pnpm exec playwright test\"",
+    "test:e2e": "start-server-and-test \"pnpm run dev:web\" http://localhost:3000 \"pnpm exec playwright test\"",
 
     "check": "pnpm run clean && pnpm run lint && pnpm run typecheck && pnpm run test:unit",
     "check:all": "pnpm run check && pnpm run test:e2e"
